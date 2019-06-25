@@ -27,3 +27,27 @@ Below are some examples showing how to run the <code>example.py</code> demo and 
 
 <code>$ python example.py --source images/ocean_sunset.jpg --target images/ocean_day.jpg</code>
 ![Sunset and Ocean screenshot](docs/images/sunset_ocean.png?raw=true)
+
+#Docker for API
+
+You can build and run the docker using the following process:
+
+Cloning
+```console
+git clone https://github.com/jrosebr1/color_transfer.git color_transfer
+```
+
+Building Docker
+```console
+cd color_transfer && docker build -t color_transfer_api -f Dockerfile-api .
+```
+
+Running Docker
+```console
+echo "http://$(curl ifconfig.io):5000" && docker run -p 5000:5000 -d color_transfer_api
+```
+
+Calling the API for image processing
+```console
+curl -X POST "http://MY_SUPER_API_IP:5000/process" -H "accept: image/png" -H "Content-Type: application/json" -d '{"source_url":"https://i.ibb.co/q9cYCzK/source.jpg", "target_url": "https://i.ibb.co/HB4bNVy/target.jpg"} --output my_super_transfered_image.png
+```
