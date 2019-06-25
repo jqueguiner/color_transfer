@@ -30,6 +30,26 @@ Below are some examples showing how to run the <code>example.py</code> demo and 
 <code>$ python example.py --source images/ocean_sunset.jpg --target images/ocean_day.jpg</code>
 ![Sunset and Ocean screenshot](docs/images/sunset_ocean.png?raw=true)
 
+
+# Docker for Notebook
+
+You can build and run the docker using the following process:
+
+## Cloning
+```console
+git clone https://github.com/jrosebr1/color_transfer.git color_transfer
+```
+
+## Building Docker
+```console
+cd color_transfer && docker build -t color_transfer -f Dockerfile .
+```
+
+## Running Docker
+```console
+echo "http://$(curl ifconfig.io):8888" && docker run --env NOTEBOOK_PASSWORD="pass123" -p 8888:8888 -it color_transfer
+```
+
 # Docker for API
 
 You can build and run the docker using the following process:
