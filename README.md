@@ -5,7 +5,7 @@ The <code>color_transfer</code> package is an OpenCV and Python implementation b
 
 For more information, along with a detailed code review, [take a look at this post on my blog](http://www.pyimagesearch.com/2014/06/30/super-fast-color-transfer-images/).
 
-#Requirements
+# Requirements
 - OpenCV
 - NumPy
 
@@ -16,7 +16,7 @@ From there, there easiest way to install is via pip:
 
 <code>$ pip install color_transfer</code>
 
-#Examples
+# Examples
 Below are some examples showing how to run the <code>example.py</code> demo and the associated color transfers between images.
 
 <code>$ python example.py --source images/autumn.jpg --target images/fallingwater.jpg</code>
@@ -28,26 +28,26 @@ Below are some examples showing how to run the <code>example.py</code> demo and 
 <code>$ python example.py --source images/ocean_sunset.jpg --target images/ocean_day.jpg</code>
 ![Sunset and Ocean screenshot](docs/images/sunset_ocean.png?raw=true)
 
-#Docker for API
+# Docker for API
 
 You can build and run the docker using the following process:
 
-Cloning
+## Cloning
 ```console
 git clone https://github.com/jrosebr1/color_transfer.git color_transfer
 ```
 
-Building Docker
+## Building Docker
 ```console
 cd color_transfer && docker build -t color_transfer_api -f Dockerfile-api .
 ```
 
-Running Docker
+## Running Docker
 ```console
 echo "http://$(curl ifconfig.io):5000" && docker run -p 5000:5000 -d color_transfer_api
 ```
 
-Calling the API for image processing
+## Calling the API for image processing
 ```console
 curl -X POST "http://MY_SUPER_API_IP:5000/process" -H "accept: image/png" -H "Content-Type: application/json" -d '{"source_url":"https://i.ibb.co/q9cYCzK/source.jpg", "target_url": "https://i.ibb.co/HB4bNVy/target.jpg"} --output my_super_transfered_image.png
 ```
