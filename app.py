@@ -31,21 +31,35 @@ def download(url, filename):
     return filename
 
 
+def generate_random_filename(extension):
+    filename = str(uuid4())
+    filename = os.path.join(upload_directory, filename + "." + extension)
+    return filename
+
+
+def clean_me(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+
+
+def clean_all(files):
+    for me in files:
+        clean_me(me)
+
+
 @app.route("/process", methods=["POST"])
 def process_image():
 
-    source_filename = str(uuid4())
-    source_filename = os.path.join(directory, source_filename + ".jpg")
-
-    target_filename = str(uuid4())
-    target_filename = os.path.join(directory, target_filename + ".jpg")
+    source_filename = generate_random_filename("jpg")
+    target_filename = generate_random_filename("jpg")
+    output_filename = generate_random_filename("jpg")
         
     try:
         source_url = request.json["source_url"]
         target_url = request.json["target_url"]
 
-        source_filename = image(source_url, source_filename) 
-        target_filename = image(source_url, target_filename) 
+        source_filename = download(source_url, source_filename) 
+        target_filename = download(target_url, target_filename) 
 
         source = cv2.imread(source_filename)
         target = cv2.imread(target_filename)
@@ -57,8 +71,8 @@ def process_image():
             preserve_paper=True
             )
 
-        cv2.imwrite(source_filename, transfer)
-        callback = send_file(source_filename, mimetype='image/jpeg')
+        cv2.imwrite(target_filename, transfer)
+        callback = send_file(target_filename, mimetype='image/jpeg')
         
         return callback, 200
 
@@ -67,11 +81,11 @@ def process_image():
         return {'message': 'input error'}, 400
 
     finally:
-        if os.path.exists(source_filename)):
-            os.remove(source_filename)
-
-        if os.path.exists(target_filename):
-            os.remove(target_filename)
+        clean_all([
+            source_filename, 
+            target_filename, 
+            output_filename
+            ])
 
 
 if __name__ == '__main__':
