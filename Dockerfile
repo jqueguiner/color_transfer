@@ -6,11 +6,16 @@ RUN apt-get update --fix-missing && apt-get install && \
         apt-get install -y wget python3 python3-pip build-essential cmake pkg-config libx11-dev libatlas-base-dev libgtk-3-dev libboost-python-dev tzdata python-opencv && \
         dpkg-reconfigure --frontend noninteractive tzdata
 
-ADD module /src/module
+RUN mkdir -p /src
 
-WORKDIR /src/module
+WORKDIR /src
 
+ADD requirements.txt /src/requirements.txt
 RUN pip3 install -r requirements.txt
+
+ADD color_transfer /src/color_transfer
+
+ADD app.py /src/app.py
 
 EXPOSE 5000
 
