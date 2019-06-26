@@ -1,6 +1,7 @@
 Super fast color transfer between images
 ==============
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jqueguiner/color_transfer.git/jupyter?filepath=example.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://ovh.mybinder.org/v2/gh/jqueguiner/color_transfer/jupyter?filepath=example.ipynb)
+
 
 
 The <code>color_transfer</code> package is an OpenCV and Python implementation based (loosely) on [*Color Transfer between Images*](http://www.thegooch.org/Publications/PDFs/ColorTransfer.pdf) [Reinhard et al., 2001] The algorithm itself is extremely efficient (much faster than histogram based methods), requiring only the mean and standard deviation of pixel intensities for each channel in the L\*a\*b\* color space.
