@@ -24,4 +24,4 @@ RUN pip3 install jupyter
 
 EXPOSE 8888
 
-ENTRYPOINT ["sh", "/src/run_notebook.sh"]
+#ENTRYPOINT ["sh", "/src/run_notebook.sh"]
