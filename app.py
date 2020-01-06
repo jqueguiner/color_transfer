@@ -59,18 +59,16 @@ def process_image():
     output_filename = generate_random_filename("jpg")
         
     try:
-        if 'source' in request.files:
+        if 'source' in request.files and 'target' in request.files:
             source = request.files['source']
             if allowed_file(source.filename):
                 source.save(source_filename)
-        if 'target' in request.files:
+       
             target = request.files['target']
             if allowed_file(target.filename):
-                target.save(target)
+                target.save(target_filename)
             
         else:
-            url = request.json["url"]
-            download(url, input_path)
             source_url = request.json["source_url"]
             target_url = request.json["target_url"]
 
