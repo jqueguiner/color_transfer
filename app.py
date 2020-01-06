@@ -55,11 +55,23 @@ def process_image():
     output_filename = generate_random_filename("jpg")
         
     try:
-        source_url = request.json["source_url"]
-        target_url = request.json["target_url"]
+        if 'source' in request.files:
+            source = request.files['source']
+            if allowed_file(source.filename):
+                source.save(source_filename)
+        if 'target' in request.files:
+            target = request.files['target']
+            if allowed_file(target.filename):
+                target.save(target)
+            
+        else:
+            url = request.json["url"]
+            download(url, input_path)
+            source_url = request.json["source_url"]
+            target_url = request.json["target_url"]
 
-        source_filename = download(source_url, source_filename) 
-        target_filename = download(target_url, target_filename) 
+            source_filename = download(source_url, source_filename) 
+            target_filename = download(target_url, target_filename) 
 
         source = cv2.imread(source_filename)
         target = cv2.imread(target_filename)
@@ -90,6 +102,8 @@ def process_image():
 
 if __name__ == '__main__':
     global upload_directory
+    global ALLOWED_EXTENSIONS
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
     
     upload_directory = 'upload'
 
