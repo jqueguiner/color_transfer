@@ -23,6 +23,10 @@ import traceback
 app = Flask(__name__)
 
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 def download(url, filename):
     data = requests.get(url).content
     with open(filename, 'wb') as handler:
